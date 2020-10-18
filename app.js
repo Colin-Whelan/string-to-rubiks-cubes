@@ -1,7 +1,11 @@
 const braille = require('./node_modules/bin-braille-parser/index.js')
 
+secretMessage = process.argv[2]
+if (secretMessage != true) {
+  secretMessage = 'Hello world.'
+}
+var secretMessage = braille.parserTextToBinBraille(secretMessage)
 
-var secretMessage = braille.parserTextToBinBraille('-')
 
 var binaryString = ''
 
