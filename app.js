@@ -4,12 +4,14 @@ const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 const argv = yargs(hideBin(process.argv)).argv
 
+var colors = require('colors');
+
 doesArgExist(argv.t, 't')
 let secretMessage = argv.t
 
 let keys = {}
 
-keys.color = ['blue', 'green', 'orange', 'red', 'yellow', 'black']
+keys.color = ['cyan', 'green', 'magenta', 'red', 'yellow', 'white']
 keys.symbol = ['^', 'v', '<', '>', '•', 'X']
 keys.number = [0,1,2,3,4,5]
 
@@ -126,15 +128,18 @@ for (let cube in visibleStickers) {
   faceString = faceString.replace(face_R, '')
 
   // console.log(face_U)
+  
 
   face_U = `${convertEncoding(face_U.substring(0,3), map)}\n${convertEncoding(face_U.substring(3,6), map)}\n${convertEncoding(face_U.substring(6,9), map)}`
   face_F = `${convertEncoding(face_F.substring(0,3), map)}\n${convertEncoding(face_F.substring(3,6), map)}\n${convertEncoding(face_F.substring(6,9), map)}`
   face_R = `${convertEncoding(face_R.substring(0,3), map)}\n${convertEncoding(face_R.substring(3,6), map)}\n${convertEncoding(face_R.substring(6,9), map)}` 
 
+  // face_U = face_U.replace('red', colors['red']('red'))
+
   console.log(`Cube: ${cube}`)
-  console.log(`U: \n${face_U}`)
-  console.log(`F: \n${face_F}`)
-  console.log(`R: \n${face_R}`)
+  console.log(`U: \n${addBashColors(face_U)}`)
+  console.log(`F: \n${addBashColors(face_F)}`)
+  console.log(`R: \n${addBashColors(face_R)}`)
   console.log(`--------------`)
 
   if (cubeString) {    
@@ -145,11 +150,24 @@ for (let cube in visibleStickers) {
 function convertEncoding(secret, map){
 let convertedSecret = secret
 
-  for (var i = 0; i < keys[map].length; i++) {    
-
+  for (var i = 0; i < keys[map].length; i++) {   
     let regex = new RegExp(keys.number[i], 'g')
-    convertedSecret = convertedSecret.replace(regex, `${keys[map][i]},`)
+
+    convertedSecret = convertedSecret.replace(regex, `${keys[map][i]},`)      
   }
 
   return convertedSecret 
+}
+
+function addBashColors(string){
+  let str = string
+
+  for (var i = 0; i < keys.color.length; i++) {  
+    let regex = new RegExp(keys.color[i], 'g')
+
+    let thisColor = keys.color[i]
+    str = str.replace(regex, colors[`${keys.color[i]}`](keys.color[i]))  
+  }
+
+  return str
 }
