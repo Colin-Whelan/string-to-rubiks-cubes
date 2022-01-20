@@ -33,7 +33,7 @@ This means for Cube '0', the 'U' face has 9 stickers visible, the 'F' face has 9
         R: 5
     }
 
-More cubes can be defined as needed.
+9 cubes are defined by default, more or less cubes can be defined as needed.
 
 ### Mappings
 Addional custom mappings can be adding to the 'keys' object.
