@@ -57,55 +57,46 @@ let encodedSecretString = encodedSecret.toString()
 
 let visibleStickers = {
   0: {
-    total: 23,
     U: 9,
     F: 9,
     R: 5
   },
   1: {
-    total: 23,
     U: 9,
     F: 9,
     R: 5
   },
   2: {
-    total: 21,
     U: 9,
     F: 8,
     R: 4
   },
   3: {
-    total: 23,
     U: 9,
     F: 5,
     R: 9
   },
   4: {
-    total: 23,
     U: 9,
     F: 5,
     R: 9
   },
   5: {
-    total: 21,
     U: 8,
     F: 4,
     R: 9
   },
   6: {
-    total: 23,
     U: 5,
     F: 9,
     R: 9
   },
   7: {
-    total: 23,
     U: 5,
     F: 9,
     R: 9
   },
   8: {
-    total: 21,
     U: 4,
     F: 9,
     R: 8
@@ -118,7 +109,9 @@ let secretInCubes = collapsedSecret
 let cubeStrings = []
 
 for (let cube in visibleStickers) {
-  let cubeString = secretInCubes.substring(0, visibleStickers[cube].total);
+  let totalStickerVisible = visibleStickers[cube].U + visibleStickers[cube].F + visibleStickers[cube].R
+
+  let cubeString = secretInCubes.substring(0, totalStickerVisible);
   secretInCubes = secretInCubes.replace(cubeString, '')
 
   let faceString = cubeString
@@ -129,13 +122,17 @@ for (let cube in visibleStickers) {
   let face_F = faceString.substring(0, visibleStickers[cube].F);
   faceString = faceString.replace(face_F, '')
 
-  let face_R = faceString.substring(0, visibleStickers[cube].R);
+  let face_R = faceString.substring(0, visibleStickers[cube].R);  
   faceString = faceString.replace(face_R, '')
 
+  face_U = convertEncoding(face_U, map)
+  face_F = convertEncoding(face_F, map)
+  face_R = convertEncoding(face_R, map)  
+
   console.log(`Cube: ${cube}`)
-  console.log(`U Face: ${convertEncoding(face_U, map)}`)
-  console.log(`F Face: ${convertEncoding(face_F, map)}`)
-  console.log(`R Face: ${convertEncoding(face_R, map)}`)
+  console.log(`U: ${face_U}`)
+  console.log(`F: ${face_F}`)
+  console.log(`R: ${face_R}`)
   console.log(`--------------`)
 
   if (cubeString) {    
