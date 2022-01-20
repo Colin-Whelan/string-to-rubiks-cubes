@@ -132,7 +132,6 @@ for (let cube in visibleStickers) {
   let face_R = faceString.substring(0, visibleStickers[cube].R);
   faceString = faceString.replace(face_R, '')
 
-
   console.log(`Cube: ${cube}`)
   console.log(`U Face: ${convertEncoding(face_U, map)}`)
   console.log(`F Face: ${convertEncoding(face_F, map)}`)
